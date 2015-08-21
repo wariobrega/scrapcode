@@ -44,3 +44,6 @@ git config --global --edit
 
 ##adding a default editor for git
 git config --global core.editor subl #this is sublimetext 3
+
+
+##in sublime there's a nice git package too!
