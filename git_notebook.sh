@@ -24,7 +24,7 @@ git commit - m 'changelog' #changelog == whatever you changed
 
 ##to send changes to my git repository
 
-git push -v #with verbose option
+git push -u origin --all #pushes the changes to the "origin" branch of the repo for all files
 
 #to add a new remote repository  
 
