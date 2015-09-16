@@ -14,9 +14,18 @@ PATH/TO/FINAL/PAIRED_FILE2_paired.fastq \
 PATH/TO/FINAL/UNPAIRED_FILE2_unpaired.fastq \
 MAXINFO:75:0.2 MINLEN:75 &
 
-
 ###Sort vcf according to chromosome name:
 
-
-
 perl vcf_sort.pl `echo chr{{1..22},X,Y,M} | tr ' ' ','` PATH/TO/UNSORTED.vcf > PATH/TO/SORTED.vcf
+
+###STAR-RNASEQ###
+
+#Create a Genome Index
+
+./STAR \ 
+--runMode genomeGenerate \ 
+--genomeDir PATH/TO/OUTPUT/DIRECTORY 
+--genomeFastaFiles PATH/TO/REFERENCE.fa \
+--sjdbGTFfile PATH/TO/ANNOTATION.gff \ 
+--limitGenomeGenerateRAM 30000000000 \ 
+--sjdbOverhang 99 
