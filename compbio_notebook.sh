@@ -29,3 +29,13 @@ perl vcf_sort.pl `echo chr{{1..22},X,Y,M} | tr ' ' ','` PATH/TO/UNSORTED.vcf > P
 --sjdbGTFfile PATH/TO/ANNOTATION.gff \ 
 --limitGenomeGenerateRAM 30000000000 \ 
 --sjdbOverhang 99 
+
+
+##Qualimap BAMQC
+./qualimap --java-mem-size=4G bamqc \
+-bam PATH/TO/BAM \
+-gff PATH/TO/REGIONS.gff \
+--outside-stats \
+-nt 2 
+--output-genome-coverage PATH/TO/PERBASE/COVERAGE.cov 
+
