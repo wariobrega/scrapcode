@@ -20,5 +20,8 @@ ls -l $(find -type f  -name *REGEX*)
 
 find -type f -name *REGEX* -exec ls -lhrt {} +;
 
+#alternatively, now that we're pretty good at it, let's use find inside a specific directory to takje all the PATHS for a specific regex and then count the output of the list operation!
+
+find ~/PATH -type f -name *REGEX* -exec ls -lhrt {} + | wc -l
 
 
