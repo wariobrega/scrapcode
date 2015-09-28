@@ -14,8 +14,10 @@ find -type f -name *REGEX* | wc -l
 ls -l $(find -type f  -name *REGEX*)
 
 #alternatively, we can exec the list operation INSIDE the find command and without assigning him to a new variable
-#just remember that exec expects an ";" charachyter at the end of the expresion to execute or will raise an error
+#just remember that exec expects an ";" charachter at the end of the expresion to execute or will raise an error
 #the "+"character in the exec means "execute this command multiple times, stil have to figure it out precisely how it works though
+#the {} parenthesis means "execute the command where the find directory was launched from
+
 find -type f -name *REGEX* -exec ls -lhrt {} +;
 
 
