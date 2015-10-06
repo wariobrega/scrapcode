@@ -28,3 +28,14 @@ find ~/PATH -type f -name *REGEX* -exec ls -lhrt {} + | wc -l
 
 rsync -avPu PATH/TO/SOURCE PATH/TO/DEST
 
+## find a specific file type and cat all files found into a single file in append mode
+# (in this case find all flagstat file and output them with the name of the directory they were into)
+
+for file in $(find tophat_alignments_* -type f -name *flagstat); 
+do 
+	a=$(dirname $file); 
+	echo $a$ >> flagstatsummary.log; 
+	cat $file >> flagstatsummary.log; 
+	echo $'\n' >> flagstatsummary.log; 
+done
+

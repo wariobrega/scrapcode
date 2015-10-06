@@ -39,3 +39,18 @@ perl vcf_sort.pl `echo chr{{1..22},X,Y,M} | tr ' ' ','` PATH/TO/UNSORTED.vcf > P
 -nt 2 
 --output-genome-coverage PATH/TO/PERBASE/COVERAGE.cov 
 
+##PICARD
+
+##AddOrreplaceReadGroup
+java -jar /data01/Software/picard/picard.jar AddOrReplaceReadGroups \
+-Djava.io.tmpdir=PATH/TO/TMP/ \
+I=/PATH/TO/INPUT.bam \
+O=/PATH/TO/OUTPUT.bam \
+RGPL="Machine_used" RGLB="Read_Owner" RGPU="whatever" RGSM="whatever"
+
+##ReorderSam (according to reference FA)
+
+java -Djava.io.tmpdir=/data01/tmp/d.capocefalo/ -jar /data01/Software/picard/picard.jar ReorderSam \
+I=/PATH/TO/INPUT.bam \
+O=/PATH/TO/OUTPUT.bam \
+R=/PATH/TO/REFERENCE.fa
