@@ -39,3 +39,7 @@ do
 	echo $'\n' >> flagstatsummary.log; 
 done
 
+
+#unpack a tar file 
+
+tar -xvf file.tar
