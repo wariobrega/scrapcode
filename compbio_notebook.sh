@@ -42,15 +42,25 @@ perl vcf_sort.pl `echo chr{{1..22},X,Y,M} | tr ' ' ','` PATH/TO/UNSORTED.vcf > P
 ##PICARD
 
 ##AddOrReplaceReadGroup
-java -jar /data01/Software/picard/picard.jar AddOrReplaceReadGroups \
--Djava.io.tmpdir=PATH/TO/TMP/ \
+java -Djava.io.tmpdir=PATH/TO/TMP/ -jar /data01/Software/picard/picard.jar \
+AddOrReplaceReadGroups \
 I=/PATH/TO/INPUT.bam \
 O=/PATH/TO/OUTPUT.bam \
 RGPL="Machine_used" RGLB="Read_Owner" RGPU="whatever" RGSM="whatever"
 
 ##ReorderSam (according to reference FA)
-java -Djava.io.tmpdir=/data01/tmp/d.capocefalo/ -jar /data01/Software/picard/picard.jar ReorderSam \
+java -Djava.io.tmpdir=/data01/tmp/d.capocefalo/ -jar /data01/Software/picard/picard.jar \
+ReorderSam \
 I=/PATH/TO/INPUT.bam \
 O=/PATH/TO/OUTPUT.bam \
 R=/PATH/TO/REFERENCE.fa
 
+
+##RNASeqQC, collect metrics about RNA-Seq alignments
+## (transcriptDetails produce an HTML version of the Report)
+java -Djava.io.tmpdir=/data01/tmp/d.capocefalo/ -jar /data01/Software/RNASeqQC/RNA-SeQC_v1.1.8.jar \
+-o /PATH/TO/OUTOUT/DIR \
+-r PATH/TO/REFERENCE.fa \
+-s "SAMPLENAME|SAMPLEPATH.bam|SAMPLENOTES" \
+-t /PATH/TO/ANNOTATION.gtf \
+-transcriptDetails &
