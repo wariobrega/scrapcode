@@ -64,3 +64,11 @@ java -Djava.io.tmpdir=/data01/tmp/d.capocefalo/ -jar /data01/Software/RNASeqQC/R
 -s "SAMPLENAME|SAMPLEPATH.bam|SAMPLENOTES" \
 -t /PATH/TO/ANNOTATION.gtf \
 -transcriptDetails &
+
+##how2download a RefFlat file from UCSC and convert it to GTF
+##(also found HERE: http://genomewiki.ucsc.edu/index.php/Genes_in_gtf_or_gff_format
+
+genePredToGtf -source=UCSC -utr hg19 refGene hg19_ucsc.gtf
+
+
+
