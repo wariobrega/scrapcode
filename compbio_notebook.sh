@@ -70,5 +70,9 @@ java -Djava.io.tmpdir=/data01/tmp/d.capocefalo/ -jar /data01/Software/RNASeqQC/R
 
 genePredToGtf -source=UCSC -utr hg19 refGene hg19_ucsc.gtf
 
+##command to launch RNA-Seq notebook in ipython (useful)
+sudo docker run --rm -it --net=host vladkim/rnaseq sh -c "ipython notebook --profile=nbserver --no-browser --ip=127.0.0.1"
+
+
 
 
