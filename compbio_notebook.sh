@@ -73,20 +73,6 @@ genePredToGtf -source=UCSC -utr hg19 refGene hg19_ucsc.gtf
 ##command to launch RNA-Seq vladkim notebook in ipython (useful for me only)
 sudo docker run --rm -it --net=host vladkim/rnaseq sh -c "ipython notebook --profile=nbserver --no-browser --ip=127.0.0.1"
 
-## parallel: launch multiple cmd line tool on the same shell at the same time! (have to be installed)
-#parallel takes in input the output of any command that list files (so find, ls, or a file containing files), and performs multiple operations on them simoultaneously
-# let's for example find a series of BAM files inside a list of dorectories and parallelize the sortiung using SAMTOOLS
-find /path/to/yourdir -type f -name *.bam | parallel -j 7 samtools sort {} {.}_sorted &
-#meanings:
-#-j 7 : parallelize 7 processes at a time
-#{} filename of each file listed
-#{.} filename without extension (see man parallel for more file options
-
-#let's use a temporary directory specified by the user to store temporary data for a series of sam files in a direcotry that needs to be converted
-ls *.sam | parallel -j 7 --tmpdir /path/to/tmp samtools view -bS {} '>' {.}.bam &
-#in this case, we redirect the stdout using the '>' parameter! (don't ask about the single quotes though'
-
-
 ##bamtools
 #bamtools is a useful tool for better parse and operate through bam files without doing the annoying operations performed by samtools (more info on https://github.com/pezmaster31/bamtools, whichj also contains a better tutorial than
 #the one that I'm writing now 4 sure!
@@ -112,6 +98,6 @@ ls *.sam | parallel -j 7 --tmpdir /path/to/tmp samtools view -bS {} '>' {.}.bam 
 #meaning: discard unmapped reads, discard reads that does not have mate mapped, discard read if not paired, discard read if it has more than one possible alignment reported
 
 #now let's combine bamtools with parallel on a subset of bam files (the results of an RNA-Seq run) for for filter all reads uniquely mapped and properly paired and gather pre and post statistics of such file
-find /path/to/output/ -type f -name *.bam | parallel -j 12 /path/to/bamtools/bin/bamtools filter -in {} -out {.}_filtered_bamtools.bam -script rnaseq_filters.json '&&' /path/to/bamtools/bin/bamtools stats -in {} '>' {.}_stats.log '&&' /path/to/bamtools/bin/bamtools stats -in {.}_filtered_bamtools.bam '>' {.}_filtered_bamtools_stats.log '&&' 
+find /path/to/output/ -type f -name *.bam | parallel -tmpdir /path/to/tmp -j 12 /path/to/bamtools/bin/bamtools filter -in {} -out {.}_filtered_bamtools.bam -script rnaseq_filters.json '&&' /path/to/bamtools/bin/bamtools stats -in {} '>' {.}_stats.log '&&' /path/to/bamtools/bin/bamtools stats -in {.}_filtered_bamtools.bam '>' {.}_filtered_bamtools_stats.log '&&' 
 
 

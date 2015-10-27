@@ -40,6 +40,19 @@ do
 done
 
 
-#unpack a tar file 
+##unpack a tar file 
 
 tar -xvf file.tar
+
+## parallel: launch multiple cmd line tool on the same shell at the same time! (have to be installed)
+#parallel takes in input the output of any command that list files (so find, ls, or a file containing files), and performs multiple operations on them simoultaneously
+# let's for example find a series of BAM files inside a list of dorectories and parallelize the sortiung using SAMTOOLS
+find /path/to/yourdir -type f -name *.bam | parallel -j 7 samtools sort {} {.}_sorted &
+#meanings:
+#-j 7 : parallelize 7 processes at a time
+#{} filename of each file listed
+#{.} filename without extension (see man parallel for more file options
+
+#let's use a temporary directory specified by the user to store temporary data for a series of sam files in a direcotry that needs to be converted
+ls *.sam | parallel -j 7 --tmpdir /path/to/tmp samtools view -bS {} '>' {.}.bam &
+#in this case, we redirect the stdout using the '>' parameter! (don't ask about the single quotes though'
