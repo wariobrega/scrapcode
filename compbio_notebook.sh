@@ -103,15 +103,14 @@ find /path/to/output/ -type f -name *.bam | parallel -tmpdir /path/to/tmp -j 12 
 
  #####
  #General Command for launching  GATK Haplotype Caller
-
  java -jar -Djava.io.tmpdir=PATH/TO/TMPDIR -Xmx4g PATH/TO/GATK -T HaplotypeCaller \
  -stand_call_conf 20.0 -stand_emit_conf 10.0 \
  -R PATH/TO/REFERENCE.FASTA \
  --dbsnp PATH/TO/DBSNP.vcf \
  -I PATH/TO/INPUT/RECAL.bam
  -O PATH/TO/VARIANTS.vcf
- 
 
+###
 
 
 
