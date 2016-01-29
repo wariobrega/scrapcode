@@ -1,4 +1,4 @@
-##few notes on several comman liune tools in testing
+##few notes on several comman line tools in testing
 
 ##trimmomatic: tool to trim raw reads according to specific criteria
 
@@ -99,5 +99,19 @@ sudo docker run --rm -it --net=host vladkim/rnaseq sh -c "ipython notebook --pro
 
 #now let's combine bamtools with parallel on a subset of bam files (the results of an RNA-Seq run) for for filter all reads uniquely mapped and properly paired and gather pre and post statistics of such file
 find /path/to/output/ -type f -name *.bam | parallel -tmpdir /path/to/tmp -j 12 /path/to/bamtools/bin/bamtools filter -in {} -out {.}_filtered_bamtools.bam -script rnaseq_filters.json '&&' /path/to/bamtools/bin/bamtools stats -in {} '>' {.}_stats.log '&&' /path/to/bamtools/bin/bamtools stats -in {.}_filtered_bamtools.bam '>' {.}_filtered_bamtools_stats.log '&&' 
+
+
+ #####
+ #General Command for launching  GATK Haplotype Caller
+
+ java -jar -Djava.io.tmpdir=PATH/TO/TMPDIR -Xmx4g PATH/TO/GATK -T HaplotypeCaller \
+ -stand_call_conf 20.0 -stand_emit_conf 10.0 \
+ -R PATH/TO/REFERENCE.FASTA \
+ --dbsnp PATH/TO/DBSNP.vcf \
+ -I PATH/TO/INPUT/RECAL.bam
+ -O PATH/TO/VARIANTS.vcf
+ 
+
+
 
 
