@@ -30,6 +30,18 @@ perl vcf_sort.pl `echo chr{{1..22},X,Y,M} | tr ' ' ','` PATH/TO/UNSORTED.vcf > P
 --limitGenomeGenerateRAM 30000000000 \ 
 --sjdbOverhang 99 
 
+#Run STAR alignment with default parameters 
+#use a temporary dir for dumping data
+#use 30 cores
+#produce a sorted BAM output
+/PATH/TO/STAR/DIR/STAR \
+--runThreadN 30 \ 
+--genomeDir PATH/TO/GENOME/INDEX/ \
+--readFilesIn PATH/TO/READ1.fastq PATH/TO/READ1.fastq \
+--outTmpDir tmp \
+--outSAMtype BAM SortedByCoordinate \
+--outBAMsortingThreadN 4 \
+-limitBAMsortRAM 12000000 \
 
 ##Qualimap BAMQC
 ./qualimap --java-mem-size=4G bamqc \
