@@ -56,3 +56,12 @@ find /path/to/yourdir -type f -name *.bam | parallel -j 7 samtools sort {} {.}_s
 #let's use a temporary directory specified by the user to store temporary data for a series of sam files in a direcotry that needs to be converted
 ls *.sam | parallel -j 7 --tmpdir /path/to/tmp samtools view -bS {} '>' {.}.bam &
 #in this case, we redirect the stdout using the '>' parameter! (don't ask about the single quotes though'
+
+#find a series of files with same name inside direstores, read tham and then ioutpout them in a file using directory name of the stored file as header
+for file in $(find -type f -name *FILE.EXT ); \
+do a=$(dirname $file); \
+b=$(basename $a); \
+echo $b; \
+cat $file; \
+echo -e "\n"; \
+done > output_summary.txt
