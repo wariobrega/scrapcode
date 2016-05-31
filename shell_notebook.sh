@@ -24,6 +24,10 @@ find -type f -name *REGEX* -exec ls -lhrt {} +;
 
 find ~/PATH -type f -name *REGEX* -exec ls -lhrt {} + | wc -l
 
+#other useful find trick: how to remove all files in a directory but the one matching a regex?
+#assuming we want to delete ALL but a .fastq file:
+find . \! -name '*.fastq' -delete
+
 #how to use rsync: -avPu (check the man for more info on this
 
 rsync -avPu PATH/TO/SOURCE PATH/TO/DEST
