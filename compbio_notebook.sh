@@ -123,6 +123,8 @@ java -jar -Djava.io.tmpdir=PATH/TO/TMPDIR -Xmx4g PATH/TO/GATK -T HaplotypeCaller
 -O PATH/TO/VARIANTS.vcf
 
 ###
+#sort a .bed file, then merge all contiguous fragments(from EXCAVATOR2 Manual)
+sort -k1,1 -k2,2n *.bed | bedtools merge
 
 
 
