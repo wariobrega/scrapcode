@@ -128,3 +128,5 @@ sort -k1,1 -k2,2n *.bed | bedtools merge
 
 
 
+##count the total length of regions in a bed file##
+cat file.bed | awk -F'\t' 'BEGIN{SUM=0}{ SUM+=$3-$2 }END{print SUM}'
